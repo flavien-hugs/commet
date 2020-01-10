@@ -5,20 +5,26 @@ Mini jeu en 2D avec le module Pygame : commet game est un mini jeu inspiré du t
 ![The MIT License](http://img.shields.io/badge/License-MIT-green.svg?style=flat)
 
 ### Tester
+------------
 
 Avant toutes choses assurer vous que vous avez installer le module suivant sous votre machine. Le code a été écrit sous python 3.
+
 	- créer un environnement virtuel et install le module pygame
 
 Télécharger ou cloner le projet ensuite rendez vous dans le dossier
 du projet et ouvrer votre invite de commande et faites :
+
 	- python start.py pour lancer le jeu.
 
 ### Contribuer
+------------
 
 Faites un fork du projet. Ajouter vos modifications et faites moi un
 pull request.
 
-Credits
+### Credit
 ------------
 
-Code repris de graven - le compte youtube: [flavien-hugs](https://twitter.com/flavien_hugs)
+Code repris de graven - le compte youtube graven.
+
+Twitter : [flavien-hugs](https://twitter.com/flavien_hugs)
