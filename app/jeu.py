@@ -1,10 +1,9 @@
-# Class principale du Jeu
 from app.player import Joueur
 
 
 class Jeu:
-    # Creation du constructeur de la class Jeu
+    # CREATION DU CONSTRUCTEUR DU JEU
     def __init__(self):
-        # instance du joueur
+        # INSTANCE JOUEUR
         self.joueur = Joueur()
         self.deplacement = {}
