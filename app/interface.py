@@ -6,6 +6,7 @@ from pygame.locals import *
 # IMPORTATION DES CLASS JEU ET JOUEUR
 from app.jeu import Jeu
 from app.player import Joueur
+from app.arme import Arme
 
 # PARAMETRES DE L'INTERFACE
 LARGEUR, HAUTEUR = 1080, 700  # LARGEUR = 1080 ET HAUTEUR = 700
@@ -14,9 +15,9 @@ BG_POS_X, BG_POS_Y = 0, -200  # COORDONNEE X, Y
 RESTART_BY_SCD = 100  # NOMBRE DE FOIS OÙ LE JEU REDESSINE LES IMAGES
 BG_IMAGE = "src/bg.jpg"  # IMAGE ARRIERE PLAN
 
-FONT = "src/fonts/PositiveSystem.otf"  # POLICE DE TEXTE
-TEXTE = "start"
-COLOR_TEXTE = "#FFFF00"
+# FONT = "src/fonts/PositiveSystem.otf"  # POLICE DE TEXTE
+# TEXTE = "start"
+# COLOR_TEXTE = "#FFFF00"
 
 
 def interface():
@@ -32,10 +33,10 @@ def interface():
     background_pos.y = BG_POS_Y
 
     # TEXTE START
-    police = pygame.font.Font(FONT, 50)
-    texte = police.render(TEXTE.upper(), True, pygame.Color(COLOR_TEXTE))
-    rectTexte = texte.get_rect()
-    rectTexte.topleft = (0, 0)
+    # police = pygame.font.Font(FONT, 50)
+    # texte = police.render(TEXTE.upper(), True, pygame.Color(COLOR_TEXTE))
+    # rectTexte = texte.get_rect()
+    # rectTexte.topleft = (0, 0)
 
     # INSTANCE DE LA CLASS JEU
     jeu = Jeu()
@@ -56,6 +57,12 @@ def interface():
             # CLICK SUR LES TOUCHES DIRECTIONNELLES DOWN & UP
             elif event.type == KEYDOWN:
                 jeu.deplacement[event.key] = True
+
+                # SI LA TOUCHE ESPACE EST APPUYEE
+                if event.key == K_SPACE:
+                    print("Attaque !")
+                    jeu.joueur.launch_arme()
+
             elif event.type == KEYUP:
                 jeu.deplacement[event.key] = False
 
@@ -63,15 +70,20 @@ def interface():
         screen.blit(background, background_pos)
 
         # AJOUT TEXTE START
-        screen.blit(texte, rectTexte)
+        # screen.blit(texte, rectTexte)
 
         # AJOUT IMAGE DU JOUEUR
-        screen.blit(jeu.joueur.image, jeu.joueur.imgDimensionRect)
+        screen.blit(jeu.joueur.image, jeu.joueur.rect)
+
+        # AJOUT IMAGE DE L'ARME
+        for arm in jeu.joueur.armes:
+            arm.move()
+        jeu.joueur.armes.draw(screen)
 
         # DEPLACEMENT DU JOUEUR
-        if jeu.deplacement.get(K_RIGHT) and jeu.joueur.imgDimensionRect.x < 910:
+        if jeu.deplacement.get(K_RIGHT) and jeu.joueur.rect.x < 910:
             jeu.joueur.allerAdroite()
-        elif jeu.deplacement.get(K_LEFT) and jeu.joueur.imgDimensionRect.x > -35:
+        elif jeu.deplacement.get(K_LEFT) and jeu.joueur.rect.x > -35:
             jeu.joueur.allerAgauche()
 
         # MISE A JOUR DE L'AFFICHAGE - ECRAN

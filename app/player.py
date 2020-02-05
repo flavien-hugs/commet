@@ -1,5 +1,7 @@
 import pygame
 
+from app.arme import Arme
+
 # PARAMETRES DU PERSONNAGE PRINCIPAL
 IMG_JOUEUR = "src/player.png"
 POS_IMG_X, POS_IMG_Y = 450, 500  # COORDONNEE DE L'IMAGE SUR L'ECRAN PRINCIPAL
@@ -17,6 +19,7 @@ class Joueur(pygame.sprite.Sprite):
         self.nombre_de_vie = NOMBRE_DE_VIE
         self.nombre_de_vie_maximale = NOMBRE_DE_VIE_MAXIMALE
         self.point_attaque_du_joueur = POINT_ATTAQUE_JOUEUR
+        self.armes = pygame.sprite.Group()
         self.vitesse_deplacement_jouer = VITESSE_DEPLACEMENT_JOUEUR
         self.image = pygame.image.load(IMG_JOUEUR).convert_alpha()
         # L'INSTRUCTION convert_alpha() PERMET DE TRAITER LA
@@ -24,15 +27,19 @@ class Joueur(pygame.sprite.Sprite):
 
         # POSITIONNEMENT DE L'IMAGE DANS UN RECTANGLE AUX
         # DIMENSIONS DE L'IMAGE
-        self.imgDimensionRect = self.image.get_rect()
+        self.rect = self.image.get_rect()
         # SUR L'AXE X
-        self.imgDimensionRect.x = POS_IMG_X
+        self.rect.x = POS_IMG_X
         # SUR L'AXE Y
-        self.imgDimensionRect.y = POS_IMG_Y
+        self.rect.y = POS_IMG_Y
+
+    # METHODE POUR ACTIONNER L'ARME
+    def launch_arme(self):
+        self.armes.add(Arme(self))
 
     # METHODE DE DEPLACEMENT DU JOUEUR
     def allerAdroite(self):
-        self.imgDimensionRect.x += self.vitesse_deplacement_jouer
+        self.rect.x += self.vitesse_deplacement_jouer
 
     def allerAgauche(self):
-        self.imgDimensionRect.x -= self.vitesse_deplacement_jouer
+        self.rect.x -= self.vitesse_deplacement_jouer
