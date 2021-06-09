@@ -7,39 +7,24 @@ Mini jeu en 2D avec le module Pygame : commet game est un mini jeu inspiré du t
 ### Tester
 ------------
 
-Avant toutes choses assurer vous que vous avez installer le module suivant sous votre machine. Le code a été écrit sous python 3.
+Avant toutes choses assurer vous que vous avez installer le module suivant sur votre machine.
+Le code a été écrit sous python 3.
 
-	- créer un environnement virtuel et install le module pygame
+	- Créer un environnement virtuel et install le module pygame
+        -- si vous utiliser pipenv, faite ''' make pipenv-install '''
+        -- pour pip, faite ''' make pip-install '''
 
 Télécharger ou cloner le projet ensuite rendez vous dans le dossier
 du projet et ouvrer votre invite de commande et faites :
 
-	- python start.py pour lancer le jeu.
+	- Pour lancer le jeu
+     -- python start.py ou make start
 
 ### Contribuer
 ------------
 
 Faites un fork du projet. Ajouter vos modifications et faites moi un
 pull request.
-
-### DOCUMENTATION DU JEU
-------------
-    - PARAMETRES DU JEU :
-        - Les dimensions en pixels de la fenêtre du jeu sont définies par les valeurs  des variables WIDTH et HEIGHT.
-            - La variable 'VTS' définit le nombre de fois que l'affichage est
-                redessiné chaque seconde.
-            - Les variables 'BACKGROUNG_IMG et USER_IMG' stockent les images ajoutées dans le jeu.
-            - La chaîne de caractères de la variable TITLE représente la barre de titre de
-                la fenêtre du jeu.
-              
-        - INITIALISATION DU JEU
-            - Pygame est initialisé en utilisant les paramètres du jeu définis ci-avant.
-            
-        - BOUCLE DU JEU
-            Les instructions qui figurent dans la boucle while sont répétées (au maximum) VTS fois par seconde, et
-            incluent obligatoirement :
-            - La gestion de l'événement pour fermer le jeu quand l'utilisateur ferme la fenêtre,
-            - la mise à jour de l'affichage du jeu
 
 ### Credit
 ------------
