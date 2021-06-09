@@ -1,45 +1,53 @@
+# app/player.py
+
 import pygame
 
-from app.arme import Arme
-
-# PARAMETRES DU PERSONNAGE PRINCIPAL
-IMG_JOUEUR = "src/player.png"
-POS_IMG_X, POS_IMG_Y = 450, 500  # COORDONNEE DE L'IMAGE SUR L'ECRAN PRINCIPAL
-NOMBRE_DE_VIE = NOMBRE_DE_VIE_MAXIMALE = 100
-POINT_ATTAQUE_JOUEUR = 10
-RESTART_BY_SCD = 60  # NOMBRE DE FOIS OÙ LE JEU REDESSINE LES IMAGES
-VITESSE_DEPLACEMENT_JOUEUR = int(round(POS_IMG_X/(3*RESTART_BY_SCD)))
+from app import animation
+from app.weapon import Weapon
 
 
-class Joueur(pygame.sprite.Sprite):
+RESTART_BY_SCD = 60
+PLAYER_ATTACK = 20
+POSITION_IMG_X, POSITION_IMG_Y = 450, 500
+PLAYER_HEALTH = PLAYER_MAX_HEALTH = 100
+VITESSE_DEPLACEMENT_JOUEUR = int(round(POSITION_IMG_X / (3 * RESTART_BY_SCD)))
 
-    # CONSTRUCTEUR DE LA CLASS JOUEUR
-    def __init__(self):
-        super(Joueur, self).__init__()
-        self.nombre_de_vie = NOMBRE_DE_VIE
-        self.nombre_de_vie_maximale = NOMBRE_DE_VIE_MAXIMALE
-        self.point_attaque_du_joueur = POINT_ATTAQUE_JOUEUR
-        self.armes = pygame.sprite.Group()
-        self.vitesse_deplacement_jouer = VITESSE_DEPLACEMENT_JOUEUR
-        self.image = pygame.image.load(IMG_JOUEUR).convert_alpha()
-        # L'INSTRUCTION convert_alpha() PERMET DE TRAITER LA
-        # TRANSPARENCE DE L'IMAGE
 
-        # POSITIONNEMENT DE L'IMAGE DANS UN RECTANGLE AUX
-        # DIMENSIONS DE L'IMAGE
+class Player(animation.AnimateSprite):
+
+    def __init__(self, game):
+        super(Player, self).__init__("player")
+        self.game = game
+        self.player_health = PLAYER_HEALTH
+        self.player_max_health = PLAYER_MAX_HEALTH
+        self.attack = PLAYER_ATTACK
+        self.weapon = pygame.sprite.Group()
+        self.velocity = VITESSE_DEPLACEMENT_JOUEUR
         self.rect = self.image.get_rect()
-        # SUR L'AXE X
-        self.rect.x = POS_IMG_X
-        # SUR L'AXE Y
-        self.rect.y = POS_IMG_Y
+        self.rect.x = POSITION_IMG_X
+        self.rect.y = POSITION_IMG_Y
 
-    # METHODE POUR ACTIONNER L'ARME
-    def launch_arme(self):
-        self.armes.add(Arme(self))
+    def player_dommage_attack(self, attack):
+        if self.player_health - attack > attack:
+            self.player_health -= attack
+        else:
+            self.game.game_over()
 
-    # METHODE DE DEPLACEMENT DU JOUEUR
-    def allerAdroite(self):
-        self.rect.x += self.vitesse_deplacement_jouer
+    def animate_player(self):
+        self.animate_sprite()
 
-    def allerAgauche(self):
-        self.rect.x -= self.vitesse_deplacement_jouer
+    def update_player_health_bar(self, surface):        
+        pygame.draw.rect(surface, (60, 63, 60), [self.rect.x + 50, self.rect.y + 20, self.player_max_health, 7])
+        pygame.draw.rect(surface, (111, 210, 46), [self.rect.x + 50, self.rect.y + 20, self.player_health, 7])
+
+    def launch_weapon(self):
+        self.weapon.add(Weapon(self))
+        self.start_animate_sprite()
+        self.game.sound_manager.play('tir')
+
+    def move_right(self):
+        if not self.game.check_collision(self, self.game.monsters):
+            self.rect.x += self.velocity
+
+    def move_left(self):
+        self.rect.x -= self.velocity

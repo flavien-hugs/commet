@@ -1,5 +1,6 @@
-from app.interface import *
+# start.py
+
+from app.main import main
 
 if __name__ == '__main__':
-    print("Demarrage réussit")
-    interface()
+    main()
