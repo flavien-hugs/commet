@@ -1,5 +1,10 @@
 # app/interface.py
 
+__version__ = 'V.0.0.1'
+__name__ = 'Comet Game'
+__author__ = 'Flavien HUGS'
+
+
 import math, sys, pygame
 
 from app.game import Game
