@@ -18,7 +18,7 @@ Télécharger ou cloner le projet ensuite rendez vous dans le dossier
 du projet et ouvrer votre invite de commande et faites :
 
 	- Pour lancer le jeu
-     -- python start.py ou make start
+     -- python start.py ou make startapp
 
 ### Contribuer
 ------------
