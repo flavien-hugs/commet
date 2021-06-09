@@ -48,6 +48,10 @@ class Game:
         score_text = self.score_font.render(f"Score : {self.score}", 1, (225, 225, 225))
         screen.blit(score_text, (20, 20))
 
+        help_text_font = pygame.font.Font("src/fonts/permanent_marker_regular.ttf", 16)
+        help_text = help_text_font.render("touche 'esc', pour sortir".upper(), 1, (225, 225, 225))
+        screen.blit(help_text, (800, 40))
+
         screen.blit(self.player.image, self.player.rect)
         self.player.update_player_health_bar(screen)
         self.player.animate_player()
