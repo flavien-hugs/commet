@@ -18,5 +18,5 @@ pipenv-install:
 generate-requirement:
 	pipenv lock -r > requirements.txt
 
-start:
+startapp:
 	$(MANAGE) start.py
